@@ -51,16 +51,17 @@ class NotesListView(LoginRequiredMixin,ListView):
     model = Notes 
     context_object_name= "notes"
     template_name="notes/notes_list.html"
-    login_url = "/admin"
+    login_url = "/login"
 
     def get_queryset(self):
         return self.request.user.notes.all()
 
 
-class NotesDetailView(DetailView):
+class NotesDetailView(LoginRequiredMixin,DetailView):
     model= Notes
     context_object_name="note"
     template_name="notes/notes_detail.html"
+
 
 
 class PopularListViews(ListView):
@@ -68,3 +69,9 @@ class PopularListViews(ListView):
     context_object_name= "notes"
     template_name="notes/notes_list.html"
     queryset= Notes.objects.filter(likes__gte=1)
+
+class NotesPublicDetailView(DetailView):
+    model= Notes
+    context_object_name="note"
+    template_name="notes/notes_detail.html"
+    queryset= Notes.objects.filter(is_public=True)
