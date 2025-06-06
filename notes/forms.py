@@ -12,7 +12,7 @@ class NoteForm(forms.ModelForm):
             'text' : forms.Textarea(attrs={'class': 'form-control my-5'})
         }
         labels= {
-            'text':'Write your thoughts here: '
+            'text':'Write your thoughts here '
         }
 
     def clean_title(self):
